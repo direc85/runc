@@ -31,6 +31,7 @@ URL:            https://github.com/opencontainers/runc
 Source0:        %{name}-%{version}.tar.xz
 BuildRequires:  diffutils
 BuildRequires:  fdupes
+# TODO: Fix Go versioning
 BuildRequires:  go1.23
 BuildRequires:  libseccomp-devel
 BuildRequires:  libselinux-devel
@@ -40,13 +41,6 @@ Recommends:     criu
 # but we need to obsolete the old one. bsc#1181677
 Obsoletes:      docker-runc < %{version}
 Provides:       docker-runc = %{version}
-# KUBIC-SPECIFIC: There used to be a kubic-specific docker-runc package, but
-#                 now it's been merged into the one package. bsc#1181677
-Obsoletes:      docker-runc-kubic < %{version}
-Provides:       docker-runc-kubic = %{version}
-Obsoletes:      docker-runc = 0.1.1+gitr2819_50a19c6
-Obsoletes:      docker-runc_50a19c6
-ExcludeArch:    s390
 
 %description
 runc is a CLI tool for spawning and running containers according to the OCI
@@ -55,7 +49,7 @@ of Docker. It was originally designed to be a replacement for LXC within Docker,
 and has grown to become a separate project entirely.
 
 %prep
-%autosetup
+%autosetup -n %{name}-%{version}
 
 %build
 make BUILDTAGS="seccomp" COMMIT="v%{version}-1-g%{git_short}" runc
@@ -63,11 +57,9 @@ make BUILDTAGS="seccomp" COMMIT="v%{version}-1-g%{git_short}" runc
 %install
 # We install to /usr/sbin/runc as per upstream and create a symlink in /usr/bin
 # for rootless tools.
-cd runc
 install -D -m0755 %{name} %{buildroot}%{_sbindir}/%{name}
 install -m0755 -d %{buildroot}%{_bindir}
 ln -s  %{_sbindir}/%{name} %{buildroot}%{_bindir}/%{name}
-cd ..
 
 %fdupes %{buildroot}
 
