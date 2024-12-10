@@ -33,7 +33,7 @@ Source1:        https://github.com/opencontainers/runc/releases/download/v%{vers
 Source2:        runc.keyring
 BuildRequires:  diffutils
 BuildRequires:  fdupes
-BuildRequires:  go
+BuildRequires:  go1.23
 BuildRequires:  libseccomp-devel
 BuildRequires:  libselinux-devel
 Recommends:     criu
