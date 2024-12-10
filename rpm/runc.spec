@@ -63,9 +63,11 @@ make BUILDTAGS="seccomp" COMMIT="v%{version}-1-g%{git_short}" runc
 %install
 # We install to /usr/sbin/runc as per upstream and create a symlink in /usr/bin
 # for rootless tools.
+cd runc
 install -D -m0755 %{name} %{buildroot}%{_sbindir}/%{name}
 install -m0755 -d %{buildroot}%{_bindir}
 ln -s  %{_sbindir}/%{name} %{buildroot}%{_bindir}/%{name}
+cd ..
 
 %fdupes %{buildroot}
 
