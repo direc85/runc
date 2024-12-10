@@ -28,9 +28,7 @@ Summary:        Tool for spawning and running OCI containers
 License:        Apache-2.0
 Group:          System/Management
 URL:            https://github.com/opencontainers/runc
-Source0:        https://github.com/opencontainers/runc/releases/download/v%{version}/runc.tar.xz#/runc-%{version}.tar.xz
-Source1:        https://github.com/opencontainers/runc/releases/download/v%{version}/runc.tar.xz.asc#/runc-%{version}.tar.xz.asc
-Source2:        runc.keyring
+Source0:        %{name}-%{version}.tar.xz
 BuildRequires:  diffutils
 BuildRequires:  fdupes
 BuildRequires:  go1.23
@@ -57,12 +55,10 @@ of Docker. It was originally designed to be a replacement for LXC within Docker,
 and has grown to become a separate project entirely.
 
 %prep
-%autosetup -n %{name}
+%autosetup
 
 %build
-pushd %{name}
 make BUILDTAGS="seccomp" COMMIT="v%{version}-1-g%{git_short}" runc
-popd
 
 %install
 # We install to /usr/sbin/runc as per upstream and create a symlink in /usr/bin
