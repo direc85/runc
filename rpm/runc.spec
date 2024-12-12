@@ -53,7 +53,7 @@ and has grown to become a separate project entirely.
 
 %build
 pushd runc
-make BUILDTAGS="seccomp" COMMIT="v%{version}-1-g%{git_short}" runc
+make BUILDTAGS="seccomp" COMMIT="%{git_describe}" runc
 popd
 
 %install
