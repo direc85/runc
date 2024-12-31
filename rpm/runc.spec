@@ -48,22 +48,18 @@ of Docker. It was originally designed to be a replacement for LXC within Docker,
 and has grown to become a separate project entirely.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version}/%{name}
 
 %build
-pushd runc
 make BUILDTAGS="seccomp" COMMIT="%{git_describe}" runc
-popd
 
 %install
-pushd runc
 # We install to /usr/sbin/runc as per upstream and create a symlink in /usr/bin
 # for rootless tools.
 install -D -m0755 %{name} %{buildroot}%{_sbindir}/%{name}
 install -m0755 -d %{buildroot}%{_bindir}
 ln -s  %{_sbindir}/%{name} %{buildroot}%{_bindir}/%{name}
 cp LICENSE ../
-popd
 
 %fdupes %{buildroot}
 
