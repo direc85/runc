@@ -31,8 +31,7 @@ URL:            https://github.com/opencontainers/runc
 Source0:        %{name}-%{version}.tar.xz
 BuildRequires:  diffutils
 BuildRequires:  fdupes
-# TODO: Fix Go versioning
-BuildRequires:  go1.23
+BuildRequires:  golang(API) >= 1.23
 BuildRequires:  libseccomp-devel
 BuildRequires:  libselinux-devel
 Recommends:     criu
