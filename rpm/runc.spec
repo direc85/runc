@@ -22,7 +22,7 @@
 %define project github.com/opencontainers/runc
 
 Name:           runc
-Version:        1.1.15
+Version:        1.2.5
 Release:        1
 Summary:        Tool for spawning and running OCI containers
 License:        Apache-2.0
@@ -31,7 +31,7 @@ URL:            https://github.com/opencontainers/runc
 Source0:        %{name}-%{version}.tar.xz
 BuildRequires:  diffutils
 BuildRequires:  fdupes
-BuildRequires:  golang(API) >= 1.23
+BuildRequires:  golang(API) >= 1.24
 BuildRequires:  libseccomp-devel
 BuildRequires:  libselinux-devel
 Recommends:     criu
